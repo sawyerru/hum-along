@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Modal, Text, TouchableOpacity, View, StyleSheet, Keyboard, TouchableWithoutFeedback, ScrollView, Alert, Switch} from 'react-native';
 import { Formik } from 'formik';
-
-
+import SetUpForm from './StartGameForm';
+import CustomSubmitButton from './CustomButton'
 export default function ConfigModal({setModalVisible, modalVisible}) {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -41,13 +41,18 @@ export default function ConfigModal({setModalVisible, modalVisible}) {
                             </TouchableOpacity>
                         </View>
                         <ScrollView>
+                            <Formik>
+
+                            </Formik>
+                            <CustomSubmitButton title = "Submit"></CustomSubmitButton>
                             <Switch
-                                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                                trackColor={{ false: "#767577", true: "#52e612" }}
                                 thumbColor={{false: "#f5dd4b", true : "#f4f3f4"}}
                                 ios_backgroundColor="#3e3e3e"
                                 onValueChange={toggleSwitch}
                                 value={isEnabled}
                             />
+
                         </ScrollView>
                     </View>
                 </Modal>
