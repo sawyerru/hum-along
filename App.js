@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import useCachedResources from './hooks/useCachedResources';
 
-import SetUpNavigation from './navigation/SetUpNavigation';
+// import SetUpNavigation from './navigation/SetUpNavigation';
 import HomeScreen from "./screens/HomeScreen";
 import GameScreen from './screens/GameScreen';
 import {globalStyles} from './styles/globalStyles';
@@ -21,7 +21,7 @@ export default function App() {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={SetUpNavigation}/>
+          <Stack.Screen name="Home" component={HomeScreen}/>
           <Stack.Screen name="Game" component={GameScreen} />
         </Stack.Navigator>
       </NavigationContainer>

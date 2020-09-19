@@ -1,17 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {globalStyles} from '../styles/globalStyles';
 import {Button, Alert, View, StyleSheet, TouchableOpacity, Text} from "react-native";
-
+import ConfigModal from "../components/ConfigModal";
 
 export default function HomeScreen({ navigation }) {
+    const [modalVisible, setModalVisible] = useState(false)
+    const config = {
+        isReady: false,
+        players: ['Akash', 'Erich', 'Sawyer', 'Scott'],
+        time: 30,
+    }
+    const handleStart = () => {
+        if (config.isReady) {
+            navigation.navigate('Game', config)
+        }
+        else { // open modal to set configs
+            setModalVisible(true);
+        }
+    }
     return (
         <View style={styles.main}>
-            <Text>Home Screen</Text>
+
+            <ConfigModal setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+            <Text>Rules</Text>
 
 
             <View style={styles.buttonContainer}>
                 <View style={styles.startGameButton}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('Game')}>
+                    <TouchableOpacity onPress={handleStart}>
                         <Text style={styles.buttonText}>Start Game</Text>
                     </TouchableOpacity>
                 </View>

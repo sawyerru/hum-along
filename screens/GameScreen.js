@@ -6,12 +6,16 @@ import {SuccessButton, FailureButton} from "../components/ActionButtons";
 import ScoreCard from "../components/ScoreCard";
 
 
-export default function GameScreen({navigation}) {
+
+export default function GameScreen({route, navigation}) {
+    const config = route.params;
+    // Randomization is happening - loading 5 new songs
+
     return (
         <View>
-            <ClockCounter />
+            <ClockCounter t={config.time}/>
             <ScoreCard />
-            <Card />
+            <Card songs={}/>
 
             <View style={styles.buttonContainer}>
                 <FailureButton />
