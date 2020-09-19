@@ -1,13 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import {View, StyleSheet, Button, Text} from "react-native";
-import {FlatList} from "react-native-web";
+// import {NotificationIcon} from "./VisualObjects";
+import {accessDb} from '../database/accessDb'
+import CustomButton from '../components/CustomButton';
 
 export default function Card(props){
+    const [count, updateCount] = useState([]);
+    accessDb(updateCount);
+    console.log(count)
     return (
         <View>
             <View style={styles.tileContainer}>
-
-                <Button title ='song 1'></Button>
+                <CustomButton></CustomButton>
+                <Button title = "Song 1" ></Button>
                 <Button title = "Song 2" ></Button>
                 <Button title = "Song 3" ></Button>
                 <Button title = "Song 4" ></Button>
