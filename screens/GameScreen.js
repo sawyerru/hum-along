@@ -4,18 +4,17 @@ import Card from '../components/CardComponent'
 import ClockCounter from "../components/ClockComponent";
 import {SuccessButton, FailureButton} from "../components/ActionButtons";
 import ScoreCard from "../components/ScoreCard";
-
+import {db} from "../database/db";
 
 
 export default function GameScreen({route, navigation}) {
     const config = route.params;
     // Randomization is happening - loading 5 new songs
-
     return (
         <View>
             <ClockCounter t={config.time}/>
             <ScoreCard />
-            <Card />
+            <Card songs = {db}/>
 
             <View style={styles.buttonContainer}>
                 <FailureButton />

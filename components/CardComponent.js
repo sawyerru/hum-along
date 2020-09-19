@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, StyleSheet, Button, Text} from "react-native";
+import {View, StyleSheet, Button, Text, FlatList, ScrollView} from "react-native";
 // import {NotificationIcon} from "./VisualObjects";
 // import {accessDb} from '../database/accessDb'
 import CustomButton from '../components/CustomButton';
@@ -9,12 +9,20 @@ export default function Card(props){
     return (
         <View>
             <View style={styles.tileContainer}>
-                <CustomButton></CustomButton>
-                <Button title = "Song 1" ></Button>
-                <Button title = "Song 2" ></Button>
-                <Button title = "Song 3" ></Button>
-                <Button title = "Song 4" ></Button>
-                <Button title = "Song 5" ></Button>
+                {/* Do this 5 times */}
+                {/* {console.log(props.songs)} */}
+                <FlatList 
+                    data={props.songs}
+                    renderItem={( { item } ) => (
+                        // console.log(item)
+                        <CustomButton songName = {item.title} artistName = {item.artist}></CustomButton>
+                    )}
+                />
+                {/* <ScrollView>
+                    {props.songs.map(item => (
+                        <CustomButton songName = {item.title} artistName = {item.artist}></CustomButton>
+                    ))}
+                </ScrollView> */}
             </View>
         </View>
     )
