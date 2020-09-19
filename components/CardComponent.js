@@ -1,6 +1,5 @@
 import React from "react";
 import {View, StyleSheet, Button, Text} from "react-native";
-// import {NotificationIcon} from "./VisualObjects";
 
 export default function Card(props){
     return (
@@ -18,16 +17,14 @@ export default function Card(props){
 
 const styles= StyleSheet.create({
     tileContainer: {
-        marginHorizontal: 18,
-        marginVertical: 10,
-    },
-    notify: {
-        position: 'relative',
+        borderRadius: 6,
         elevation: 3,
+        backgroundColor: '#fff',
         shadowOffset: {width: 1, height: 1},
         shadowColor: '#333',
         shadowOpacity: 0.5,
         shadowRadius: 2,
-        alignSelf: 'flex-end'
-    }
+        marginHorizontal: 4,
+        marginVertical: 6,
+    },
 })
