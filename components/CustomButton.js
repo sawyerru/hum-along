@@ -6,7 +6,7 @@ export default function CustomButton(props){
     console.log(props)
     return (
             <TouchableOpacity style={styles.button}>
-                    <Text>{props.songName}</Text>
+                    <Text style={styles.song}>{props.songName}</Text>
                     <Text>{props.artistName}</Text>
             </TouchableOpacity>
             
@@ -28,5 +28,8 @@ const styles= StyleSheet.create({
         color: "black",
         // textAlign: "center",
         // alignItems: "center"
+    },
+    song: {
+        fontSize: 20
     }
 })

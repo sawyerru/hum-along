@@ -11,7 +11,7 @@ export default function GameScreen({route, navigation}) {
     const config = route.params;
     // Randomization is happening - loading 5 new songs
     return (
-        <View>
+        <View style={styles.view}>
             <ClockCounter t={config.time}/>
             <ScoreCard />
             <Card songs = {db}/>
@@ -31,5 +31,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginHorizontal: '20%'
+    },
+    view:{
+        backgroundColor: "#18453b",
+        height: "100%"
     }
 })

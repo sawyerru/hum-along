@@ -26,6 +26,7 @@ export default class ClockCounter extends Component{
         return (
           <View >
                 <Text style ={{textAlignVertical: "center",textAlign: "center",
+                color: "white",
                 fontWeight: 'bold',
                 fontSize: 24,
                 marginTop: 0,
