@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Modal, Text, TouchableOpacity, View, StyleSheet,
-    Keyboard, TouchableWithoutFeedback, ScrollView, Button, Alert, TextInput} from 'react-native';
+    Keyboard, TouchableWithoutFeedback, ScrollView, Button, FlatList, Alert, TextInput} from 'react-native';
 import { Formik } from 'formik';
-
+import {Picker} from '@react-native-community/picker';
 
 export default function ConfigModal({setModalVisible, modalVisible, config, updateConfig, navigation}) {
+    const [time, updateTime] = useState(0);
+    const [player, updatePlayer] = useState('');
+    const [players, updatePlayers] = useState([]);
 
     const closeModal = () => {
         Alert.alert(
@@ -41,6 +44,8 @@ export default function ConfigModal({setModalVisible, modalVisible, config, upda
                             <Formik
                                 initialValues={config}
                                 onSubmit={(values)=> {
+                                    values['time']= time;
+                                    values['players']= players;
                                     updateConfig(values);
                                     setModalVisible(!modalVisible);
                                     navigation.navigate('Game', config);
@@ -48,23 +53,38 @@ export default function ConfigModal({setModalVisible, modalVisible, config, upda
                             >
                                 {(props) => (
                                     <View>
-                                        <TextInput
-                                            placeholder='Timer'
-                                            onChangeText={props.handleChange('timer')}
-                                            value={props.values.timer}
-                                        />
+                                        <Text>Clock Time:</Text>
+                                        <Picker
+                                            selectedValue={time}
+                                            onValueChange={(itemValue, itemIndex) =>
+                                                updateTime(itemValue)
+                                            }>
+                                            <Picker.Item label="30 Seconds" value={30}/>
+                                            <Picker.Item label="1 Minute" value={60} />
+                                            <Picker.Item label="1.5 Minutes" value={90} />
+                                            <Picker.Item label="2 Minutes" value={120} />
+                                        </Picker>
+                                        <Text>Players:</Text>
                                         <TextInput
                                             placeholder='Player'
-                                            onChangeText={props.handleChange('player')}
-                                            value={props.values.player}
+                                            onChangeText={(val)=>updatePlayer(val)}
+                                            returnKeyType='done'
+                                            clearButtonMode="always"
+                                            onSubmitEditing={
+                                                () => {
+                                                    const item = {key: player}
+                                                    updatePlayer('')
+                                                    updatePlayers(players => [...players, item]);
+                                                }
+                                            }
                                         />
-                                        <TextInput
-                                            placeholder='extra'
-                                            onChangeText={props.handleChange('extra')}
-                                            value={props.values.extra}
+                                        <FlatList
+                                            data={players}
+                                            renderItem={({item}) => <Text>{item.key}</Text>}
                                         />
-                                        <Button title='Lets Play' onPress={props.handleSubmit} />
-
+                                        <TouchableOpacity style={styles.submitButton} onPress={props.handleSubmit}>
+                                            <Text style={styles.buttonText}>Lets Play</Text>
+                                        </TouchableOpacity>
                                     </View>
                                 )}
                             </Formik>
@@ -98,4 +118,17 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
     },
+    submitButton: {
+        backgroundColor: 'green',
+        width: '50%',
+        alignSelf: 'center',
+        // height: '2
+        paddingVertical: '3%',
+        borderRadius: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 18,
+        alignSelf: 'center',
+    }
 })

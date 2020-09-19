@@ -5,14 +5,13 @@ import ConfigModal from "../components/ConfigModal";
 
 export default function HomeScreen({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false)
-    const [config, updateConfig] = useState({isReady: false, timer: '', player:[]})
+    const [config, updateConfig] = useState({isReady: false, players:[]})
     const handleStart = () => {
         if (config.isReady) {
             navigation.navigate('Game', config)
         }
         else { // open modal to set configs
             setModalVisible(true);
-            // navigation.navigate('Game', config)
         }
     }
     return (

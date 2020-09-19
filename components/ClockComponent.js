@@ -4,9 +4,11 @@ import {View, Text, StyleSheet} from 'react-native';
 export default class ClockCounter extends Component{
     constructor(props){
         super(props);
-        this.state ={ seconds: props.t}
+        this.state = { seconds: props.t}
+        this.setPlaying = props.setPlaying
     }
     componentDidMount (){
+        this.setPlaying(true);
         this.interval = setInterval(
             () => {
             this.setState({
@@ -17,6 +19,7 @@ export default class ClockCounter extends Component{
     componentDidUpdate(){
         if(this.state.seconds === 0){ 
           clearInterval(this.interval);
+          this.setPlaying(false);
         }
       }
     componentWillUnmount(){
