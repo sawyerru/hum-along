@@ -7,23 +7,21 @@ import CustomButton from '../components/CustomButton';
 export default function Card(props){
 
     return (
-        <View>
-            <View style={styles.tileContainer}>
-                {/* Do this 5 times */}
-                {/* {console.log(props.songs)} */}
-                <FlatList 
-                    data={props.songs}
-                    renderItem={( { item } ) => (
-                        // console.log(item)
-                        <CustomButton songName = {item.title} artistName = {item.artist}></CustomButton>
-                    )}
-                />
-                {/* <ScrollView>
-                    {props.songs.map(item => (
-                        <CustomButton songName = {item.title} artistName = {item.artist}></CustomButton>
-                    ))}
-                </ScrollView> */}
-            </View>
+        <View style={styles.tileContainer}>
+            {/* Do this 5 times */}
+            {/* {console.log(props.songs)} */}
+            <FlatList 
+                data={props.songs}
+                renderItem={( { item } ) => (
+                    // console.log(item)
+                    <CustomButton songName = {item.title} artistName = {item.artist}></CustomButton>
+                )}
+            />
+            {/* <ScrollView>
+                {props.songs.map(item => (
+                    <CustomButton songName = {item.title} artistName = {item.artist}></CustomButton>
+                ))}
+            </ScrollView> */}
         </View>
     )
 }
@@ -33,6 +31,7 @@ const styles= StyleSheet.create({
         borderRadius: 6,
         elevation: 3,
         backgroundColor: '#fff',
+        height: "70%",
         shadowOffset: {width: 1, height: 1},
         shadowColor: '#333',
         shadowOpacity: 0.5,
