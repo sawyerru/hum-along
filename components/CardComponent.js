@@ -5,9 +5,7 @@ import {accessDb} from '../database/accessDb'
 import CustomButton from '../components/CustomButton';
 
 export default function Card(props){
-    const [count, updateCount] = useState([]);
-    accessDb(updateCount);
-    console.log(count)
+    // accessDb(setState);
     return (
         <View>
             <View style={styles.tileContainer}>
@@ -21,6 +19,11 @@ export default function Card(props){
         </View>
     )
 }
+
+const setState = (array) => {
+    console.log(array);
+}
+
 
 const styles= StyleSheet.create({
     tileContainer: {
