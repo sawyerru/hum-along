@@ -1,9 +1,11 @@
-import React from 'react';
-import {Modal, Text, TouchableOpacity, View, StyleSheet, Keyboard, TouchableWithoutFeedback, ScrollView, Alert} from 'react-native';
+import React, {useState} from 'react';
+import {Modal, Text, TouchableOpacity, View, StyleSheet, Keyboard, TouchableWithoutFeedback, ScrollView, Alert, Switch} from 'react-native';
 import { Formik } from 'formik';
 
 
 export default function ConfigModal({setModalVisible, modalVisible}) {
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const closeModal = () => {
         Alert.alert(
             'Are you sure?',
@@ -39,7 +41,13 @@ export default function ConfigModal({setModalVisible, modalVisible}) {
                             </TouchableOpacity>
                         </View>
                         <ScrollView>
-                            <Text>Hello from the modal</Text>
+                            <Switch
+                                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                                thumbColor={{false: "#f5dd4b", true : "#f4f3f4"}}
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={toggleSwitch}
+                                value={isEnabled}
+                            />
                         </ScrollView>
                     </View>
                 </Modal>
