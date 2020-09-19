@@ -1,12 +1,36 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import  Card from '../components/CardComponent'
+import {View, Text, StyleSheet} from 'react-native';
+import Card from '../components/CardComponent'
+import ClockCounter from "../components/ClockComponent";
+import {SuccessButton, FailureButton} from "../components/ActionButtons";
+import ScoreCard from "../components/ScoreCard";
 
-export default function GameScreen() {
+
+
+export default function GameScreen({route, navigation}) {
+    const config = route.params;
+    // Randomization is happening - loading 5 new songs
+
     return (
         <View>
-            <Card></Card>
-            <Text>This is the game screen</Text>
+            <ClockCounter t={config.time}/>
+            <ScoreCard />
+            <Card songs={}/>
+
+            <View style={styles.buttonContainer}>
+                <FailureButton />
+                <SuccessButton />
+            </View>
+
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: '20%'
+    }
+})
