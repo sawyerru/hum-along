@@ -3,12 +3,28 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const isLoadingComplete = useCachedResources();
+
+  if (!isLoadingComplete) {
+    return null;
+  } else {
+    return (
+        <SafeAreaProvider>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+            <NavigationContainer theme={DefaultTheme} linking={LinkingConfiguration}>
+              <Stack.Navigator>
+                <Stack.Screen name="Root" component={BottomTabNavigator}/>
+                <Stack.Screen name="Profile" component={ProfileScreen} />
+              </Stack.Navigator>
+            </NavigationContainer>
+
+          </View>
+        </SafeAreaProvider>
+
+
+    );
+  }
 }
 
 const styles = StyleSheet.create({
