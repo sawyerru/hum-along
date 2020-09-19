@@ -5,23 +5,20 @@ import ConfigModal from "../components/ConfigModal";
 
 export default function HomeScreen({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false)
-    const config = {
-        isReady: false,
-        players: ['Akash', 'Erich', 'Sawyer', 'Scott'],
-        time: 30,
-    }
+    const [config, updateConfig] = useState({isReady: false, timer: '', player:[]})
     const handleStart = () => {
         if (config.isReady) {
             navigation.navigate('Game', config)
         }
         else { // open modal to set configs
             setModalVisible(true);
+            // navigation.navigate('Game', config)
         }
     }
     return (
         <View style={styles.main}>
 
-            <ConfigModal setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+            <ConfigModal setModalVisible={setModalVisible} modalVisible={modalVisible} config={config} updateConfig={updateConfig} navigation={navigation}/>
             <Text>Rules</Text>
 
 

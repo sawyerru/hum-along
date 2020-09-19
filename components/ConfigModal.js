@@ -1,9 +1,11 @@
 import React from 'react';
-import {Modal, Text, TouchableOpacity, View, StyleSheet, Keyboard, TouchableWithoutFeedback, ScrollView, Alert} from 'react-native';
+import {Modal, Text, TouchableOpacity, View, StyleSheet,
+    Keyboard, TouchableWithoutFeedback, ScrollView, Button, Alert, TextInput} from 'react-native';
 import { Formik } from 'formik';
 
 
-export default function ConfigModal({setModalVisible, modalVisible}) {
+export default function ConfigModal({setModalVisible, modalVisible, config, updateConfig, navigation}) {
+
     const closeModal = () => {
         Alert.alert(
             'Are you sure?',
@@ -27,10 +29,7 @@ export default function ConfigModal({setModalVisible, modalVisible}) {
                 <Modal
                     animationType='slide'
                     transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                    }}>
+                    visible={modalVisible}>
                     <View style={styles.modalContainer}>
                         <View style={styles.modalHeader}>
                             <Text style={styles.modalTitle}>Set Up Game</Text>
@@ -39,7 +38,36 @@ export default function ConfigModal({setModalVisible, modalVisible}) {
                             </TouchableOpacity>
                         </View>
                         <ScrollView>
-                            <Text>Hello from the modal</Text>
+                            <Formik
+                                initialValues={config}
+                                onSubmit={(values)=> {
+                                    updateConfig(values);
+                                    setModalVisible(!modalVisible);
+                                    navigation.navigate('Game', config);
+                                }}
+                            >
+                                {(props) => (
+                                    <View>
+                                        <TextInput
+                                            placeholder='Timer'
+                                            onChangeText={props.handleChange('timer')}
+                                            value={props.values.timer}
+                                        />
+                                        <TextInput
+                                            placeholder='Player'
+                                            onChangeText={props.handleChange('player')}
+                                            value={props.values.player}
+                                        />
+                                        <TextInput
+                                            placeholder='extra'
+                                            onChangeText={props.handleChange('extra')}
+                                            value={props.values.extra}
+                                        />
+                                        <Button title='Lets Play' onPress={props.handleSubmit} />
+
+                                    </View>
+                                )}
+                            </Formik>
                         </ScrollView>
                     </View>
                 </Modal>
