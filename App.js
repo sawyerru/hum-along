@@ -1,6 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React, {useEffect} from 'react';
+import { Platform, StatusBar, StyleSheet, View, Button } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StyleSheet, Text, View } from 'react-native';
+
+import useCachedResources from './hooks/useCachedResources';
+
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
