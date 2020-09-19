@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Text} from 'react-native';
 
 
-export default function GameScreen({navigation}) {
+export default function JoinGameScreen() {
     return (
         <View>
-            <Text>This is the game screen</Text>
+            <Text>Join Game Screen</Text>
         </View>
     )
 }
