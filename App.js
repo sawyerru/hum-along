@@ -26,7 +26,7 @@ export default function App() {
             {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
             <NavigationContainer theme={DefaultTheme} linking={LinkingConfiguration}>
               <Stack.Navigator>
-                <Stack.Screen name="Home" component={SetUpNavigation}/>
+                {/*<Stack.Screen name="Home" component={SetUpNavigation}/>*/}
                 <Stack.Screen name="Game" component={GameScreen} />
               </Stack.Navigator>
             </NavigationContainer>

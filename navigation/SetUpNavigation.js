@@ -9,7 +9,7 @@ export default function SetUpStackNavigation() {
     return(
         <SetUpStack.Navigator>
             <SetUpStack.Screen name='Start Game Options' component={SetUpScreen} />
-
+            <SetUpStack.Screen name='Join Game' component={JoinGame} />
         </SetUpStack.Navigator>
     )
 }
