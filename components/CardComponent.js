@@ -10,6 +10,7 @@ export default function Card(props){
                 <Button title = "Song 2" ></Button>
                 <Button title = "Song 3" ></Button>
                 <Button title = "Song 4" ></Button>
+                <Button title = "Song 5" ></Button>
             </View>
         </View>
     )
