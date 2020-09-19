@@ -1,11 +1,17 @@
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import React, {useEffect} from 'react';
 import { Platform, StatusBar, StyleSheet, View, Button } from 'react-native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StyleSheet, Text, View } from 'react-native';
 
 import useCachedResources from './hooks/useCachedResources';
+import LinkingConfiguration from './navigation/LinkingConfiguration';
+
+import GameScreen from './screens/GameScreen';
+import HomeScreen from "./screens/HomeScreen";
+import {globalStyles} from './styles/globalStyles';
+
+const Stack = createStackNavigator();
 
 
 export default function App() {
@@ -16,14 +22,16 @@ export default function App() {
   } else {
     return (
         <SafeAreaProvider>
-          <View style={styles.container}>
+          <View style={globalStyles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
             <NavigationContainer theme={DefaultTheme} linking={LinkingConfiguration}>
               <Stack.Navigator>
-                <Stack.Screen name="Root" component={BottomTabNavigator}/>
-                <Stack.Screen name="Profile" component={ProfileScreen} />
+                <Stack.Screen name="Home" component={HomeScreen}/>
+                <Stack.Screen name="Game" component={GameScreen} />
               </Stack.Navigator>
             </NavigationContainer>
+
+
 
           </View>
         </SafeAreaProvider>
@@ -32,12 +40,3 @@ export default function App() {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
