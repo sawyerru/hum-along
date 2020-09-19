@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {View, StyleSheet, Button, Text, FlatList, ScrollView} from "react-native";
 // import {NotificationIcon} from "./VisualObjects";
 // import {accessDb} from '../database/accessDb'
-import CustomButton from '../components/CustomButton';
+import CustomSongButton from '../components/CustomButton';
 
 export default function Card(props){
 
@@ -14,7 +14,7 @@ export default function Card(props){
                 data={props.songs}
                 renderItem={( { item } ) => (
                     // console.log(item)
-                    <CustomButton songName = {item.title} artistName = {item.artist}></CustomButton>
+                    <CustomSongButton songName = {item.title} artistName = {item.artist}></CustomSongButton>
                 )}
             />
             {/* <ScrollView>
