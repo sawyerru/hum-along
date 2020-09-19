@@ -7,8 +7,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
 
+import SetUpNavigation from './navigation/SetUpNavigation';
 import GameScreen from './screens/GameScreen';
-import HomeScreen from "./screens/HomeScreen";
 import {globalStyles} from './styles/globalStyles';
 
 const Stack = createStackNavigator();
@@ -26,7 +26,7 @@ export default function App() {
             {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
             <NavigationContainer theme={DefaultTheme} linking={LinkingConfiguration}>
               <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeScreen}/>
+                <Stack.Screen name="Home" component={SetUpNavigation}/>
                 <Stack.Screen name="Game" component={GameScreen} />
               </Stack.Navigator>
             </NavigationContainer>
