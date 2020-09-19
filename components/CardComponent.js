@@ -1,13 +1,11 @@
 import React, {useState} from "react";
 import {View, StyleSheet, Button, Text} from "react-native";
 // import {NotificationIcon} from "./VisualObjects";
-import {accessDb} from '../database/accessDb'
+// import {accessDb} from '../database/accessDb'
 import CustomButton from '../components/CustomButton';
 
 export default function Card(props){
-    const [count, updateCount] = useState([]);
-    accessDb(updateCount);
-    console.log(count)
+
     return (
         <View>
             <View style={styles.tileContainer}>

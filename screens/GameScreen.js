@@ -15,7 +15,7 @@ export default function GameScreen({route, navigation}) {
         <View>
             <ClockCounter t={config.time}/>
             <ScoreCard />
-            <Card songs={}/>
+            <Card/>
 
             <View style={styles.buttonContainer}>
                 <FailureButton />

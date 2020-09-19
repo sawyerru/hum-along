@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation }) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.joinGameButton}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Game', config)}>
                         <Text style={styles.buttonText}>Join a Game</Text>
                     </TouchableOpacity>
                 </View>
