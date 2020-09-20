@@ -8,20 +8,12 @@ export default function Card(props){
 
     return (
         <View style={styles.tileContainer}>
-            {/* Do this 5 times */}
-            {/* {console.log(props.songs)} */}
             <FlatList 
                 data={props.songs}
                 renderItem={( { item } ) => (
-                    // console.log(item)
                     <CustomSongButton songName = {item.title} artistName = {item.artist}></CustomSongButton>
                 )}
             />
-            {/* <ScrollView>
-                {props.songs.map(item => (
-                    <CustomButton songName = {item.title} artistName = {item.artist}></CustomButton>
-                ))}
-            </ScrollView> */}
         </View>
     )
 }

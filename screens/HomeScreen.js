@@ -2,34 +2,41 @@ import React, {useState} from 'react';
 import {globalStyles} from '../styles/globalStyles';
 import {Button, Alert, View, StyleSheet, TouchableOpacity, Text, Image} from "react-native";
 import ConfigModal from "../components/ConfigModal";
+import RulesModal from "../components/RulesModal";
 
 export default function HomeScreen({ navigation }) {
-    const [modalVisible, setModalVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false);
+    const [rulesVisible, setRulesVisible] = useState(false);
     const [config, updateConfig] = useState({isReady: false, players:[]})
+
     const handleStart = () => {
-        if (config.isReady) {
-            navigation.navigate('Game', config)
-        }
-        else { // open modal to set configs
-            setModalVisible(true);
-        }
+        if (config.isReady) { navigation.navigate('Game', config) }
+        else { setModalVisible(true); }
+    }
+    const showRules = () => {
+        console.log('he')
+        setRulesVisible(true)
     }
     return (
         <View style={styles.main}>
 
             <ConfigModal setModalVisible={setModalVisible} modalVisible={modalVisible} config={config} updateConfig={updateConfig} navigation={navigation}/>
-            <Text style={styles.text}>(1)To start: Lorem ipsum dolor, </Text>
-            <Text style={styles.text}>(2)sit amet consectetur adipisicing elit. </Text>
-            <Text style={styles.text}>(3)Atque, magni nemo ipsam similique modi</Text>
-            <Text style={styles.text}>(4)earum sequi minus doloremque, </Text>
-            <Text style={styles.text}>(5)natus distinctio nobis quibusdam voluptatum reprehenderit </Text>
-            <Text style={styles.text}>(6)veritatis quidem labore iure. The winner: Autem, soluta?</Text>
-            <Image style={{ justifyContent: 'center', alignItems: 'center', width: '100%', height: 250 }}source={require('./../assets/logo.jpg')} />
+            <RulesModal setModalVisible={setRulesVisible} modalVisible={rulesVisible} />
+
+            <View style={styles.imageContainer}>
+                <Image style={styles.logo} source={require('./../assets/logo.jpg')} />
+                <Text style={styles.subtitle}>In A Hum-Along!</Text>
+            </View>
 
             <View style={styles.buttonContainer}>
                 <View style={styles.startGameButton}>
                     <TouchableOpacity onPress={handleStart}>
                         <Text style={styles.buttonText}>Start Game</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.rulesButton}>
+                    <TouchableOpacity onPress={showRules}>
+                        <Text style={styles.buttonText}>Rules</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -52,6 +59,13 @@ const styles = StyleSheet.create({
         paddingVertical: '3%',
         paddingHorizontal: '10%'
     },
+    rulesButton: {
+        borderRadius: 10,
+        borderColor: 'grey',
+        paddingVertical: '3%',
+        paddingHorizontal: '10%',
+        backgroundColor: '#a0ced9'
+    },
     buttonContainer: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -64,5 +78,23 @@ const styles = StyleSheet.create({
         // justifyContent: 'center'
         color: 'white',
     },
-    text: {justifyContent: 'center',alignItems: 'center', fontSize: 20, color: 'white'}
+    text: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 20, color: 'white'
+    },
+    logo: {
+        width: 280,
+        height: 280,
+        borderRadius: 200,
+    },
+    imageContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '10%'
+    },
+    subtitle: {
+        fontSize: 40,
+        fontFamily: 'grandstander'
+    }
 })

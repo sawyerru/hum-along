@@ -1,11 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Animated, Alert} from 'react-native';
+import React, {useState, useLayoutEffect} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Animated, Alert, Button} from 'react-native';
 import Card from '../components/CardComponent'
-import ClockCounter from "../components/ClockComponent";
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import {SuccessButton, FailureButton, NextButton} from "../components/ActionButtons";
-import ScoreCard from "../components/ScoreCard";
-import {db} from "../database/db";
+import {db, SIZE} from "../database/db";
 
 export default function GameScreen({route, navigation}) {
     const config = route.params;
@@ -64,7 +62,7 @@ export default function GameScreen({route, navigation}) {
 
 
     const skipPressed = () => {
-        // Update Cards
+        refreshCards();
     }
 
     const successPressed = () => {
@@ -78,7 +76,7 @@ export default function GameScreen({route, navigation}) {
             setPlaying(false);
             handleGameEnd();
         }
-        // Update Cards
+        refreshCards();
     }
 
     const nextPressed = () => {
@@ -89,29 +87,50 @@ export default function GameScreen({route, navigation}) {
         } else {
             updateRound(round + 1);
 
-            // Update Cards
+            refreshCards();
             if (round % 2 === 0) { //even means team 2
                 updateMessage('Team 1 is guessing')
             } else {
                 updateMessage('Team 2 is guessing')
             }
         }
-
     }
 
     const refreshCards = () => {
         // get 5 new cards from database to pass to cards component
-        const cards = [];
-        for (let i=0; i < 12; i++) {
-            const r = Math.random() * 12 - 1;
-            cards.push(db[r]);
+        const idx = []
+        for (let i=0; i < 5; i++) {
+            let r = Math.floor(Math.random() * SIZE);
+            while (idx.includes(r)) { r = Math.floor(Math.random() * SIZE); }
+            idx.push(r);
         }
+        const c = []
+        idx.forEach( i => {c.push(db[i])});
+        updateCards(c);
         // Mongo API call will go here
     }
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => (
+                <View style={styles.optionsContainer}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Alert.alert('Quit the Game?',
+                                'Are you sure?',
+                                [
+                                    {text: 'Quit', onPress: ()=>navigation.navigate('Home'), style:'destructive'},
+                                    {text: 'Cancel', style:'cancel'}])
+                        }}>
+                        <Text style={styles.quit}>...</Text>
+                    </TouchableOpacity>
+                </View>
+            ),
+        });
+    }, [navigation]);
+
     return (
         <View style={styles.view}>
-            {/*<ClockCounter t={config.time} setPlaying={setPlaying}/>*/}
             <View style={styles.status}>
                 <View style={styles.timer}>
                     <CountdownCircleTimer
@@ -143,7 +162,7 @@ export default function GameScreen({route, navigation}) {
             </View>
 
 
-            <Card songs = {db}/>
+            <Card songs = {cards}/>
 
             <View>
                 <Text style={styles.instructions}>{message}</Text>
@@ -214,8 +233,9 @@ const styles = StyleSheet.create({
         color: '#859fd5',
         fontFamily: 'grandstander-semibold'
     },
-    scoreBoard: {
-
+    optionsContainer: {
+        marginHorizontal: 10,
+        paddingHorizontal: 10,
     },
     scoreBoardHeader: {
         fontSize: 30,
@@ -223,8 +243,9 @@ const styles = StyleSheet.create({
         fontFamily: 'grandstander-bold',
         fontWeight: 'bold'
     },
-    timer: {
-
+    quit: {
+        fontSize: 30,
+        fontWeight: 'bold'
     },
     status: {
         flexDirection: 'row',

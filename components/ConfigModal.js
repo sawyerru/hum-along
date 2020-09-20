@@ -40,7 +40,7 @@ export default function ConfigModal({setModalVisible, modalVisible, config, upda
                         <View style={styles.modalHeader}>
                             <Text style={styles.modalTitle}>Set Up Game</Text>
                             <TouchableOpacity onPress={closeModal} >
-                                <Text>X</Text>
+                                <Text style={styles.close}>X</Text>
                             </TouchableOpacity>
                         </View>
                         <ScrollView>
@@ -160,5 +160,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         alignSelf: 'center',
+    },
+    close: {
+        color: 'red'
     }
 })

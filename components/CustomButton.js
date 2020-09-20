@@ -7,7 +7,7 @@ export default function CustomSongButton(props){
     return (
             <TouchableOpacity style={styles.button}>
                     <Text style={styles.song}>{props.songName}</Text>
-                    <Text>{props.artistName}</Text>
+                    <Text style={styles.artist}>{props.artistName}</Text>
             </TouchableOpacity>
             
     )
@@ -15,7 +15,6 @@ export default function CustomSongButton(props){
 
 
 export function CustomSubmitButton(props){
-    console.log(props)
     return (
         <TouchableOpacity style={styles.button2}>
                 <Text style={styles.song}>{props.title}</Text>
@@ -38,11 +37,14 @@ const styles= StyleSheet.create({
         borderRadius: 10,
         margin: "2%",
         color: "black",
-        // textAlign: "center",
-        // alignItems: "center"
     },
     song: {
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'grandstander-semibold'
+    },
+    artist: {
+        fontFamily: 'grandstander',
+        fontSize: 18
     },
     button2: {
         backgroundColor: "white",

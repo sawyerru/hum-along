@@ -1,10 +1,10 @@
 import React from 'react';
+import {View, TouchableOpacity, Text, Alert, StyleSheet} from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import useCachedResources from './hooks/useCachedResources';
 
-// import SetUpNavigation from './navigation/SetUpNavigation';
 import HomeScreen from "./screens/HomeScreen";
 import GameScreen from './screens/GameScreen';
 import {globalStyles} from './styles/globalStyles';
@@ -21,12 +21,34 @@ export default function App() {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen}/>
-          <Stack.Screen name="Game" component={GameScreen} />
+          <Stack.Screen name="Home" component={HomeScreen}
+          options={{
+            title:'',
+            headerStyle: {
+              backgroundColor: '#fcf5c7'
+            }
+
+          }}/>
+          <Stack.Screen name="Game" component={GameScreen}
+          options={{
+            title: '',
+            headerStyle: {
+              backgroundColor: '#fcf5c7'
+            },
+          }}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
 
-
+const styles = StyleSheet.create({
+  ellipse: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  optionsContainer: {
+    marginHorizontal: 20,
+    paddingHorizontal: 5,
+  }
+})
