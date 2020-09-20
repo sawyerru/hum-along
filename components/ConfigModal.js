@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import {Picker} from '@react-native-community/picker';
 
 export default function ConfigModal({setModalVisible, modalVisible, config, updateConfig, navigation}) {
-    const [time, updateTime] = useState(0);
+    const [time, updateTime] = useState(30);
     const [player, updatePlayer] = useState('');
     const [players, updatePlayers] = useState([]);
 
@@ -56,8 +56,9 @@ export default function ConfigModal({setModalVisible, modalVisible, config, upda
                                         <Text>Clock Time:</Text>
                                         <Picker
                                             selectedValue={time}
-                                            onValueChange={(itemValue, itemIndex) =>
+                                            onValueChange={(itemValue, itemIndex) => {
                                                 updateTime(itemValue)
+                                            }
                                             }>
                                             <Picker.Item label="30 Seconds" value={30}/>
                                             <Picker.Item label="1 Minute" value={60} />

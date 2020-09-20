@@ -11,7 +11,10 @@ export default function GameScreen({route, navigation}) {
 
     const [round, updateRound] = useState(1);
     const [isPlaying, setPlaying] = useState(false);
-    const [cards, updateCards] = useState(refreshCards());
+    const [cards, updateCards] = useState([]);
+    const [team1, updateTeam1] = useState(0);
+    const [team2, updateTeam2] = useState(0);
+
 
     function SuccessButton() {
         return (
@@ -43,15 +46,7 @@ export default function GameScreen({route, navigation}) {
         )
     }
 
-    const refreshCards = () => {
-        // get 5 new cards from database to pass to cards component
-        const cards = [];
-        for (let i=0; i < 12; i++) {
-            const r = Math.random() * 12 - 1;
-            cards.push(db[r]);
-        }
-        // Mongo API call will go here
-    }
+
 
     const skipPressed = () => {
         console.log('skip')
@@ -64,17 +59,31 @@ export default function GameScreen({route, navigation}) {
     const nextPressed = () => {
         console.log('next')
         updateRound(round + 1);
+        console.log(round)
+    }
+
+    const refreshCards = () => {
+        // get 5 new cards from database to pass to cards component
+        const cards = [];
+        for (let i=0; i < 12; i++) {
+            const r = Math.random() * 12 - 1;
+            cards.push(db[r]);
+        }
+        // Mongo API call will go here
     }
 
     return (
         <View style={styles.view}>
             <ClockCounter t={config.time} setPlaying={setPlaying}/>
             <ScoreCard />
-            <Card songs = {cards}/>
+            <Text>Team 1: {team1}</Text>
+            <Text>Team 2: {team2}</Text>
+            <Card songs = {db}/>
 
             <View style={styles.instructions}>
 
             </View>
+
             <View style={styles.buttonContainer}>
                 {isPlaying && <FailureButton />}
                 {isPlaying && <SuccessButton />}

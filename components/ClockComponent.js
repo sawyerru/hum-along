@@ -34,10 +34,8 @@ export default class ClockCounter extends Component{
                 fontSize: 24,
                 marginTop: 0,
                 width: "100%", }}
-                >{this.state.seconds===0 ? 'Time is up! Pass to the next person': this.state.seconds}</Text>
+                >{this.state.seconds} sec.</Text>
             </View>
         )
-        
     }
-    
 }
