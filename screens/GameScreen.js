@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Animated, Alert} from 'react-native';
 import Card from '../components/CardComponent'
 import ClockCounter from "../components/ClockComponent";
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
@@ -10,7 +10,7 @@ import {db} from "../database/db";
 export default function GameScreen({route, navigation}) {
     const config = route.params;
 
-    let message = 'Get Ready to Play!'
+    const [message, updateMessage] = useState("Press 'Go' to Play")
     const [round, updateRound] = useState(0);
     const [isPlaying, setPlaying] = useState(false);
     const [cards, updateCards] = useState([]);
@@ -59,18 +59,24 @@ export default function GameScreen({route, navigation}) {
         } else {
             updateTeam1(team1 + 1)
         }
+
+        if (team1 >= config.scores || team2 >= config.scores) {
+            Alert.alert('', 'Game Finished')
+        }
         // Update Cards
     }
 
     const nextPressed = () => {
         setPlaying(true);
         updateRound(round + 1);
+        if (round >= config.rounds) {
+            Alert.alert('', 'Game Finished')
+        }
         // Update Cards
-        // Start Countdown again
-        if (round %2 == 0) { //even means team 2
-            message ='Team 2 is guessing'
+        if (round % 2 === 0) { //even means team 2
+            updateMessage('Team 1 is guessing')
         } else {
-            message = 'Team 1 is guessing'
+            updateMessage('Team 2 is guessing')
         }
     }
 
@@ -97,6 +103,7 @@ export default function GameScreen({route, navigation}) {
                         colors="red"
                         onComplete={() => {
                             setPlaying(false);
+                            updateMessage('Pass to the next team')
                             return [false, 0]
                         }}
                     >
@@ -110,7 +117,7 @@ export default function GameScreen({route, navigation}) {
 
                 {/*<ScoreCard />*/}
                 <View style={styles.scoreBoard}>
-                    <Text style={styles.scoreBoardHeader}>Scores:</Text>
+                    <Text style={styles.scoreBoardHeader}>Round: {round}</Text>
                     <Text style={styles.text}>Team 1: {team1}</Text>
                     <Text style={styles.text}>Team 2: {team2}</Text>
                 </View>

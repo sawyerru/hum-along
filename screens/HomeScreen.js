@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        justifyContent: 'flex-end',
         marginBottom: 24
     },
     buttonText: {

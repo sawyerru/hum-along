@@ -3,9 +3,12 @@ import {Modal, Text, TouchableOpacity, View, StyleSheet,
     Keyboard, TouchableWithoutFeedback, ScrollView, Button, FlatList, Alert, TextInput} from 'react-native';
 import { Formik } from 'formik';
 import {Picker} from '@react-native-community/picker';
+import {round} from "react-native-reanimated";
 
 export default function ConfigModal({setModalVisible, modalVisible, config, updateConfig, navigation}) {
     const [time, updateTime] = useState(30);
+    const [rounds, updateRounds] = useState(10);
+    const [score, updateScore] = useState(20);
     const [player, updatePlayer] = useState('');
     const [players, updatePlayers] = useState([]);
 
@@ -46,6 +49,8 @@ export default function ConfigModal({setModalVisible, modalVisible, config, upda
                                 onSubmit={(values)=> {
                                     values['time']= time;
                                     values['players']= players;
+                                    values['rounds']=rounds;
+                                    values['scores']=score;
                                     updateConfig(values);
                                     setModalVisible(!modalVisible);
                                     navigation.navigate('Game', config);
@@ -65,24 +70,48 @@ export default function ConfigModal({setModalVisible, modalVisible, config, upda
                                             <Picker.Item label="1.5 Minutes" value={90} />
                                             <Picker.Item label="2 Minutes" value={120} />
                                         </Picker>
-                                        <Text>Players:</Text>
-                                        <TextInput
-                                            placeholder='Player'
-                                            onChangeText={(val)=>updatePlayer(val)}
-                                            returnKeyType='done'
-                                            clearButtonMode="always"
-                                            onSubmitEditing={
-                                                () => {
-                                                    const item = {key: player}
-                                                    updatePlayer('')
-                                                    updatePlayers(players => [...players, item]);
-                                                }
+                                        <Text>Max Rounds:</Text>
+                                        <Picker
+                                            selectedValue={rounds}
+                                            onValueChange={(itemValue, itemIndex) => {
+                                                updateRounds(itemValue)
                                             }
-                                        />
-                                        <FlatList
-                                            data={players}
-                                            renderItem={({item}) => <Text>{item.key}</Text>}
-                                        />
+                                            }>
+                                            <Picker.Item label="3" value={3}/>
+                                            <Picker.Item label="5" value={5} />
+                                            <Picker.Item label="8" value={8} />
+                                            <Picker.Item label="10" value={10} />
+                                        </Picker>
+                                        <Text>Max Score:</Text>
+                                        <Picker
+                                            selectedValue={score}
+                                            onValueChange={(itemValue, itemIndex) => {
+                                                updateScore(itemValue)
+                                            }
+                                            }>
+                                            <Picker.Item label="10" value={10}/>
+                                            <Picker.Item label="12" value={12} />
+                                            <Picker.Item label="15" value={15} />
+                                            <Picker.Item label="20" value={20} />
+                                        </Picker>
+                                        {/*<Text>Players:</Text>*/}
+                                        {/*<TextInput*/}
+                                        {/*    placeholder='Player'*/}
+                                        {/*    onChangeText={(val)=>updatePlayer(val)}*/}
+                                        {/*    returnKeyType='done'*/}
+                                        {/*    clearButtonMode="always"*/}
+                                        {/*    onSubmitEditing={*/}
+                                        {/*        () => {*/}
+                                        {/*            const item = {key: player}*/}
+                                        {/*            updatePlayer('')*/}
+                                        {/*            updatePlayers(players => [...players, item]);*/}
+                                        {/*        }*/}
+                                        {/*    }*/}
+                                        {/*/>*/}
+                                        {/*<FlatList*/}
+                                        {/*    data={players}*/}
+                                        {/*    renderItem={({item}) => <Text>{item.key}</Text>}*/}
+                                        {/*/>*/}
                                         <TouchableOpacity style={styles.submitButton} onPress={props.handleSubmit}>
                                             <Text style={styles.buttonText}>Lets Play</Text>
                                         </TouchableOpacity>
