@@ -15,7 +15,10 @@ export default function useCachedResources() {
                 // Load fonts
                 await Font.loadAsync({
                     ...Ionicons.font,
-                    // 'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
+                    'grandstander': require('../assets/fonts/Grandstander-Italic-VariableFont_wght.ttf'),
+                    'grandstander-italic': require('../assets/fonts/Grandstander-Italic-VariableFont_wght.ttf'),
+                    'grandstander-bold': require('../assets/fonts/Grandstander-Bold.ttf'),
+                    'grandstander-semibold': require('../assets/fonts/Grandstander-SemiBold.ttf')
                 });
             } catch (e) {
                 // We might want to provide this error information to an error reporting service

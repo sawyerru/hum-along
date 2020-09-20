@@ -30,13 +30,11 @@ const styles= StyleSheet.create({
     tileContainer: {
         borderRadius: 6,
         elevation: 3,
-        backgroundColor: '#18453b',
-        // height: "70%",
+        backgroundColor: '#ffee93',
         shadowOffset: {width: 1, height: 1},
         shadowColor: '#333',
         shadowOpacity: 0.5,
         shadowRadius: 2,
         marginHorizontal: 4,
-        // marginVertical: 6,
     },
 })

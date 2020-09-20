@@ -17,6 +17,20 @@ export default function GameScreen({route, navigation}) {
     const [team1, updateTeam1] = useState(0);
     const [team2, updateTeam2] = useState(0);
 
+    const handleGameEnd = () => {
+        let winner = '';
+        if (team1 > team2) { winner = 'Team 1 Wins!'}
+        if (team2 > team1) { winner = 'Team 2 Wins!'}
+        if (team2 === team1 ) {winner = 'Its a Tie!'}
+
+        Alert.alert('Game Finished!', winner,
+            [
+                {
+                    text: 'Return to Home Menu',
+                    onPress: () => navigation.navigate('Home')
+                },
+            ])
+    }
 
     function SuccessButton() {
         return (
@@ -60,24 +74,29 @@ export default function GameScreen({route, navigation}) {
             updateTeam1(team1 + 1)
         }
 
-        if (team1 >= config.scores || team2 >= config.scores) {
-            Alert.alert('', 'Game Finished')
+        if (team1 === config.scores-1 || team2 === config.scores-1) {
+            setPlaying(false);
+            handleGameEnd();
         }
         // Update Cards
     }
 
     const nextPressed = () => {
         setPlaying(true);
-        updateRound(round + 1);
-        if (round >= config.rounds) {
-            Alert.alert('', 'Game Finished')
-        }
-        // Update Cards
-        if (round % 2 === 0) { //even means team 2
-            updateMessage('Team 1 is guessing')
+        if (round + 1 >= config.rounds) {
+            setPlaying(false);
+            handleGameEnd();
         } else {
-            updateMessage('Team 2 is guessing')
+            updateRound(round + 1);
+
+            // Update Cards
+            if (round % 2 === 0) { //even means team 2
+                updateMessage('Team 1 is guessing')
+            } else {
+                updateMessage('Team 2 is guessing')
+            }
         }
+
     }
 
     const refreshCards = () => {
@@ -100,7 +119,7 @@ export default function GameScreen({route, navigation}) {
                         key={round}
                         isPlaying={isPlaying}
                         duration={config.time}
-                        colors="red"
+                        colors="#a0ced9"
                         onComplete={() => {
                             setPlaying(false);
                             updateMessage('Pass to the next team')
@@ -135,7 +154,6 @@ export default function GameScreen({route, navigation}) {
                 {isPlaying && <SuccessButton />}
                 {!isPlaying && <NextButton />}
             </View>
-
         </View>
     )
 }
@@ -148,17 +166,18 @@ const styles = StyleSheet.create({
         marginHorizontal: '20%'
     },
     view:{
-        backgroundColor: "#18453b",
+        backgroundColor: "#fcf5c7",
         height: "100%"
     },
     instructions: {
         fontSize: 28,
         marginVertical: 8,
-        color: 'white',
-        alignSelf: 'center'
+        color: '#859fd5',
+        alignSelf: 'center',
+        fontFamily: 'grandstander-semibold'
     },
     successButton: {
-        backgroundColor: 'green',
+        backgroundColor: '#A5FFD6',
         borderBottomRightRadius: 10,
         borderTopRightRadius: 10,
         width: 200,
@@ -167,7 +186,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     failButton: {
-        backgroundColor: 'red',
+        backgroundColor: '#FFA69E',
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
         width: 200,
@@ -176,7 +195,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     nextButton: {
-        backgroundColor: 'orange',
+        backgroundColor: '#adf7b6',
         borderRadius: 10,
         width: 400,
         height: 50,
@@ -184,21 +203,25 @@ const styles = StyleSheet.create({
 
     },
     buttonText: {
-        color: 'white',
+        color: '#859fd5',
         fontSize: 24,
         fontWeight: 'bold',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'grandstander-bold'
     },
     text: {
-        fontSize: 16,
-        color: 'white'
+        fontSize: 20,
+        color: '#859fd5',
+        fontFamily: 'grandstander-semibold'
     },
     scoreBoard: {
 
     },
     scoreBoardHeader: {
         fontSize: 30,
-        color: 'white'
+        color: '#859fd5',
+        fontFamily: 'grandstander-bold',
+        fontWeight: 'bold'
     },
     timer: {
 
@@ -212,6 +235,7 @@ const styles = StyleSheet.create({
     },
     timerText: {
         fontSize: 30,
-        color: 'red'
+        color: '#a0ced9',
+        fontFamily: 'grandstander-semibold'
     }
 })

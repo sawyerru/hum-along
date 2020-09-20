@@ -32,11 +32,6 @@ export default function HomeScreen({ navigation }) {
                         <Text style={styles.buttonText}>Start Game</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.joinGameButton}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('Game', config)}>
-                        <Text style={styles.buttonText}>Join a Game</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
         </View>
     );
@@ -45,21 +40,14 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
     main: {
         flex: 1,
-        backgroundColor: '#18453b',
+        backgroundColor: '#fcf5c7',
         justifyContent: 'center',
         color: 'white'
     },
     startGameButton: {
-        backgroundColor: 'green',
+        backgroundColor: '#84dcc6',
         borderRadius: 10,
         marginBottom: '5%',
-        borderColor: 'grey',
-        paddingVertical: '3%',
-        paddingHorizontal: '10%'
-    },
-    joinGameButton: {
-        backgroundColor: 'orange',
-        borderRadius: 10,
         borderColor: 'grey',
         paddingVertical: '3%',
         paddingHorizontal: '10%'
