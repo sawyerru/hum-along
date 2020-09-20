@@ -16,6 +16,7 @@ export default class ClockCounter extends Component{
             })
         }, 1000);
     }
+
     componentDidUpdate(){
         if(this.state.seconds === 0){ 
           clearInterval(this.interval);

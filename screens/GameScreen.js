@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
 import Card from '../components/CardComponent'
 import ClockCounter from "../components/ClockComponent";
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import {SuccessButton, FailureButton, NextButton} from "../components/ActionButtons";
 import ScoreCard from "../components/ScoreCard";
 import {db} from "../database/db";
@@ -9,7 +10,8 @@ import {db} from "../database/db";
 export default function GameScreen({route, navigation}) {
     const config = route.params;
 
-    const [round, updateRound] = useState(1);
+    let message = 'Get Ready to Play!'
+    const [round, updateRound] = useState(0);
     const [isPlaying, setPlaying] = useState(false);
     const [cards, updateCards] = useState([]);
     const [team1, updateTeam1] = useState(0);
@@ -26,7 +28,7 @@ export default function GameScreen({route, navigation}) {
         )
     }
 
-    function FailureButton(props) {
+    function FailureButton() {
         return (
             <View style={styles.failButton}>
                  <TouchableOpacity onPress={skipPressed}>
@@ -40,26 +42,36 @@ export default function GameScreen({route, navigation}) {
         return (
             <View style={styles.nextButton}>
                 <TouchableOpacity onPress={nextPressed}>
-                    <Text style={styles.buttonText}>Next</Text>
+                    <Text style={styles.buttonText}>Go</Text>
                 </TouchableOpacity>
             </View>
         )
     }
 
 
-
     const skipPressed = () => {
-        console.log('skip')
+        // Update Cards
     }
 
     const successPressed = () => {
-        console.log('add')
+        if (round%2 === 0) { // evens are for team 2
+            updateTeam2(team2 + 1)
+        } else {
+            updateTeam1(team1 + 1)
+        }
+        // Update Cards
     }
 
     const nextPressed = () => {
-        console.log('next')
+        setPlaying(true);
         updateRound(round + 1);
-        console.log(round)
+        // Update Cards
+        // Start Countdown again
+        if (round %2 == 0) { //even means team 2
+            message ='Team 2 is guessing'
+        } else {
+            message = 'Team 1 is guessing'
+        }
     }
 
     const refreshCards = () => {
@@ -74,14 +86,41 @@ export default function GameScreen({route, navigation}) {
 
     return (
         <View style={styles.view}>
-            <ClockCounter t={config.time} setPlaying={setPlaying}/>
-            <ScoreCard />
-            <Text>Team 1: {team1}</Text>
-            <Text>Team 2: {team2}</Text>
+            {/*<ClockCounter t={config.time} setPlaying={setPlaying}/>*/}
+            <View style={styles.status}>
+                <View style={styles.timer}>
+                    <CountdownCircleTimer
+                        size={100}
+                        key={round}
+                        isPlaying={isPlaying}
+                        duration={config.time}
+                        colors="red"
+                        onComplete={() => {
+                            setPlaying(false);
+                            return [false, 0]
+                        }}
+                    >
+                        {({ remainingTime, animatedColor }) => (
+                            <Animated.Text style={styles.timerText}>
+                                {remainingTime}
+                            </Animated.Text>
+                        )}
+                    </CountdownCircleTimer>
+                </View>
+
+                {/*<ScoreCard />*/}
+                <View style={styles.scoreBoard}>
+                    <Text style={styles.scoreBoardHeader}>Scores:</Text>
+                    <Text style={styles.text}>Team 1: {team1}</Text>
+                    <Text style={styles.text}>Team 2: {team2}</Text>
+                </View>
+            </View>
+
+
             <Card songs = {db}/>
 
-            <View style={styles.instructions}>
-
+            <View>
+                <Text style={styles.instructions}>{message}</Text>
             </View>
 
             <View style={styles.buttonContainer}>
@@ -106,7 +145,10 @@ const styles = StyleSheet.create({
         height: "100%"
     },
     instructions: {
-
+        fontSize: 28,
+        marginVertical: 8,
+        color: 'white',
+        alignSelf: 'center'
     },
     successButton: {
         backgroundColor: 'green',
@@ -125,7 +167,6 @@ const styles = StyleSheet.create({
         height: 50,
         borderColor: 'black',
         justifyContent: 'center',
-
     },
     nextButton: {
         backgroundColor: 'orange',
@@ -140,5 +181,30 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         alignSelf: 'center'
+    },
+    text: {
+        fontSize: 16,
+        color: 'white'
+    },
+    scoreBoard: {
+
+    },
+    scoreBoardHeader: {
+        fontSize: 30,
+        color: 'white'
+    },
+    timer: {
+
+    },
+    status: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 10,
+        marginVertical: 10,
+        paddingHorizontal: 80,
+    },
+    timerText: {
+        fontSize: 30,
+        color: 'red'
     }
 })
