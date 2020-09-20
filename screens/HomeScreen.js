@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {globalStyles} from '../styles/globalStyles';
-import {Button, Alert, View, StyleSheet, TouchableOpacity, Text} from "react-native";
+import {Button, Alert, View, StyleSheet, TouchableOpacity, Text, Image} from "react-native";
 import ConfigModal from "../components/ConfigModal";
 
 export default function HomeScreen({ navigation }) {
@@ -18,8 +18,13 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.main}>
 
             <ConfigModal setModalVisible={setModalVisible} modalVisible={modalVisible} config={config} updateConfig={updateConfig} navigation={navigation}/>
-            <Text>Rules</Text>
-
+            <Text style={styles.text}>(1)To start: Lorem ipsum dolor, </Text>
+            <Text style={styles.text}>(2)sit amet consectetur adipisicing elit. </Text>
+            <Text style={styles.text}>(3)Atque, magni nemo ipsam similique modi</Text>
+            <Text style={styles.text}>(4)earum sequi minus doloremque, </Text>
+            <Text style={styles.text}>(5)natus distinctio nobis quibusdam voluptatum reprehenderit </Text>
+            <Text style={styles.text}>(6)veritatis quidem labore iure. The winner: Autem, soluta?</Text>
+            <Image style={{ justifyContent: 'center', alignItems: 'center', width: '100%', height: 250 }}source={require('./../assets/logo.jpg')} />
 
             <View style={styles.buttonContainer}>
                 <View style={styles.startGameButton}>
@@ -33,7 +38,6 @@ export default function HomeScreen({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </View>
-
         </View>
     );
 }
@@ -41,7 +45,9 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
     main: {
         flex: 1,
-        backgroundColor: 'magenta',
+        backgroundColor: '#18453b',
+        justifyContent: 'center',
+        color: 'white'
     },
     startGameButton: {
         backgroundColor: 'green',
@@ -61,11 +67,15 @@ const styles = StyleSheet.create({
     buttonContainer: {
         justifyContent: 'center',
         alignItems: 'center',
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 24
     },
     buttonText: {
         alignSelf: 'center',
         fontSize: 20,
         // justifyContent: 'center'
-        color: 'white'
-    }
+        color: 'white',
+    },
+    text: {justifyContent: 'center',alignItems: 'center', fontSize: 20, color: 'white'}
 })
